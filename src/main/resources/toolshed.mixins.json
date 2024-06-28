@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.ironhorsedevgroup.mods.toolshed.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "toolshed.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
