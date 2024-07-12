@@ -1,5 +1,6 @@
 package net.ironhorsedevgroup.mods.toolshed.pseudoitems;
 
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
@@ -7,7 +8,7 @@ import net.minecraft.world.level.ItemLike;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PseudoItemStack {
+public class PseudoItemStack implements ItemLike {
     public List<ItemLike> items = new ArrayList<>();
 
     public PseudoItemStack() {}
@@ -22,16 +23,17 @@ public class PseudoItemStack {
         return this;
     }
 
-    public ItemLike getItem() {
+    @Override
+    public Item asItem() {
         for (ItemLike item : items) {
             if (item.asItem() != Items.AIR) {
-                return item;
+                return item.asItem();
             }
         }
         return Items.AIR;
     }
 
-    public ItemStack getItemStack() {
+    public ItemStack asItemStack() {
         for (ItemLike item : items) {
             if (item.asItem() != Items.AIR) {
                 if (item instanceof PseudoItem pseudo) {
