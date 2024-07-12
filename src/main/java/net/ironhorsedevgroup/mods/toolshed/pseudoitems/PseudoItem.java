@@ -2,52 +2,59 @@ package net.ironhorsedevgroup.mods.toolshed.pseudoitems;
 
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.fml.ModList;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.Objects;
 
-public class PseudoItem {
-    private final List<PseudoItemStack> orderedItems = new ArrayList<>();
-    private ItemStack resolvedItem = null;
+public class PseudoItem implements ItemLike {
+    private ResourceLocation location;
+    private ItemStack stack = new ItemStack(Items.APPLE);
 
-    public PseudoItem(String... items) {
-        for (String item : items) {
-            this.orderedItems.add(new PseudoItemStack(item));
-        }
+    public PseudoItem(ResourceLocation location) {
+        this.location = location;
     }
 
-    public ItemStack resolveItem() {
-        if (resolvedItem == null) {
-            for (PseudoItemStack item : this.orderedItems) {
-                ResourceLocation location = item.getResourceLocation();
-                if (ModList.get().isLoaded(location.getNamespace())) {
-                    if (ForgeRegistries.ITEMS.containsKey(location)) {
-                        ItemStack retStack = new ItemStack(ForgeRegistries.ITEMS.getValue(location));
-                        for (Map.Entry<String, Object> entry : item.getNBT().entrySet()) {
-                            String key = entry.getKey();
-                            Object value = entry.getValue();
-                            if (value instanceof Boolean bool) {
-                                NBT.putBoolTag(retStack, key, bool);
-                            } else if (value instanceof Double num) {
-                                NBT.putDoubleTag(retStack, key, num);
-                            } else if (value instanceof Integer num) {
-                                NBT.putIntTag(retStack, key, num);
-                            } else if (value instanceof String str) {
-                                NBT.putStringTag(retStack, key, str);
-                            }
-                            resolvedItem = retStack;
-                            return retStack;
-                        }
-                    }
-                }
-            }
-            return new ItemStack(Items.AIR);
+    public PseudoItem(Item item) {
+        this.location = ForgeRegistries.ITEMS.getKey(item);
+    }
+
+    public PseudoItem putStringTag(String tag, String value) {
+        NBT.putStringTag(stack, tag, value);
+        return this;
+    }
+
+    public PseudoItem putIntTag(String tag, Integer value) {
+        NBT.putIntTag(stack, tag, value);
+        return this;
+    }
+
+    public PseudoItem putDoubleTag(String tag, Double value) {
+        NBT.putDoubleTag(stack, tag, value);
+        return this;
+    }
+
+    public PseudoItem putBoolTag(String tag, Boolean value) {
+        NBT.putBoolTag(stack, tag, value);
+        return this;
+    }
+
+    @Override
+    public Item asItem() {
+        if (ForgeRegistries.ITEMS.getValue(location) != null) {
+            return ForgeRegistries.ITEMS.getValue(location);
         }
-        return resolvedItem;
+        return Items.AIR;
+    }
+
+    public ItemStack asItemStack() {
+        ItemStack retStack = new ItemStack(this.asItem());
+        for (String tag : this.stack.getOrCreateTag().getAllKeys()) {
+            retStack.getOrCreateTag().put(tag, Objects.requireNonNull(this.stack.getOrCreateTag().get(tag)));
+        }
+        return retStack;
     }
 }

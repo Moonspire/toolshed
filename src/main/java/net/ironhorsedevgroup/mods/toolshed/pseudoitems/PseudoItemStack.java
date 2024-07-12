@@ -1,51 +1,45 @@
 package net.ironhorsedevgroup.mods.toolshed.pseudoitems;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PseudoItemStack {
-    private final ResourceLocation id;
-    private final Map<String, Object> nbt = new HashMap<>();
+    public List<ItemLike> items = new ArrayList<>();
 
-    public PseudoItemStack(ResourceLocation id) {
-        this.id = id;
-    }
+    public PseudoItemStack() {}
 
-    public PseudoItemStack(String id) {
-        this.id = new ResourceLocation(id);
-    }
-
-    public ResourceLocation getResourceLocation() {
-        return id;
-    }
-
-    public PseudoItemStack addNBT(String tagName, String tagData) {
-        this.nbt.put(tagName, tagData);
+    public PseudoItemStack addItem(ItemLike item) {
+        items.add(item);
         return this;
     }
 
-    public PseudoItemStack addNBT(String tagName, Double tagData) {
-        this.nbt.put(tagName, tagData);
+    public PseudoItemStack addItem(Integer index, ItemLike item) {
+        items.add(index, item);
         return this;
     }
 
-    public PseudoItemStack addNBT(String tagName, Integer tagData) {
-        this.nbt.put(tagName, tagData);
-        return this;
+    public ItemLike getItem() {
+        for (ItemLike item : items) {
+            if (item.asItem() != Items.AIR) {
+                return item;
+            }
+        }
+        return Items.AIR;
     }
 
-    public PseudoItemStack addNBT(String tagName, Boolean tagData) {
-        this.nbt.put(tagName, tagData);
-        return this;
-    }
-
-    public Map<String, Object> getNBT() {
-        return this.nbt;
-    }
-
-    public Object getNBT(String tagName) {
-        return this.nbt.get(tagName);
+    public ItemStack getItemStack() {
+        for (ItemLike item : items) {
+            if (item.asItem() != Items.AIR) {
+                if (item instanceof PseudoItem pseudo) {
+                    return pseudo.asItemStack();
+                }
+                return new ItemStack(item);
+            }
+        }
+        return new ItemStack(Items.AIR);
     }
 }
