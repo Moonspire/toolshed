@@ -12,6 +12,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 
 public class Data {
     public static JsonObject readJson(ResourceLocation location, ResourceManager manager) {
+        location = new ResourceLocation(location.getNamespace(), location.getPath() + ".json");
         try {
             if (manager.getResource(location).isPresent()) {
                 JsonReader reader = new JsonReader(manager.getResource(location).get().openAsReader());
@@ -23,10 +24,12 @@ public class Data {
     }
 
     public static JsonObject readAssets(ResourceLocation location) {
+        location = new ResourceLocation(location.getNamespace(), location.getPath() + ".json");
         return readJson(location, Minecraft.getInstance().getResourceManager());
     }
 
     public static JsonObject readData(ResourceLocation location, MinecraftServer server) {
+        location = new ResourceLocation(location.getNamespace(), location.getPath() + ".json");
         return readJson(location, server.getResourceManager());
     }
 
