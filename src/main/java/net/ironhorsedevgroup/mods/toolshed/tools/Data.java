@@ -1,5 +1,7 @@
 package net.ironhorsedevgroup.mods.toolshed.tools;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
@@ -26,5 +28,35 @@ public class Data {
 
     public static JsonObject readData(ResourceLocation location, MinecraftServer server) {
         return readJson(location, server.getResourceManager());
+    }
+
+    public static class DataObject {
+        private final JsonObject json;
+
+        private DataObject() {
+            json = new JsonObject();
+        }
+
+        public DataObject(JsonObject json) {
+            this.json = json;
+        }
+
+        public DataObject getObject(String target) {
+            if (json.has(target)) {
+                return new DataObject(json.getAsJsonObject(target));
+            }
+            return new DataObject();
+        }
+
+        public JsonArray getArray(String target) {
+            if (json.has(target)) {
+                return json.getAsJsonArray(target);
+            }
+            return new JsonArray();
+        }
+
+        public JsonElement get() {
+            return json;
+        }
     }
 }
