@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.RenderTypeGroup;
 
@@ -35,6 +36,11 @@ public class SimpleItemModelOverride implements ItemModelOverride {
 
     @Override
     public BakedModel getModel(ItemStack stack) {
+        return model;
+    }
+
+    @Override
+    public BakedModel getModel(Item item) {
         return model;
     }
 }
