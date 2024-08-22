@@ -1,5 +1,6 @@
 package net.ironhorsedevgroup.mods.toolshed.tools;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 
@@ -92,6 +93,23 @@ public class NBT {
     public static ItemStack appendStringTag(ItemStack itemStack, String name, String text) {
         String existingText = getStringTag(itemStack, name);
         putStringTag(itemStack, name, existingText + text);
+        return itemStack;
+    }
+
+    public static ResourceLocation getLocationTag(ItemStack itemStack, String name) {
+        try {
+            return new ResourceLocation(itemStack.getTag().getString(name));
+        } catch (Exception e) {
+            return new ResourceLocation("null", "null");
+        }
+    }
+
+    public static ItemStack putLocationTag(ItemStack itemStack, String name, ResourceLocation location) {
+        if (location != null && !location.toString().equals("null:null")) {
+            itemStack.getOrCreateTag().putString(name, location.toString());
+        } else {
+            removeTag(itemStack, name);
+        }
         return itemStack;
     }
 

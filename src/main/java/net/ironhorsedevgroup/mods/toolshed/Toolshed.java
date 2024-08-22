@@ -27,7 +27,7 @@ public class Toolshed {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "toolshed";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public Toolshed() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
