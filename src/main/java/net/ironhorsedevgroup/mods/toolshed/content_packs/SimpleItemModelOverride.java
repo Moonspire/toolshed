@@ -23,7 +23,7 @@ public class SimpleItemModelOverride implements ItemModelOverride {
     }
 
     public static SimpleItemModelOverride fromLocation(ResourceLocation location) {
-        location = new ResourceLocation(location.getNamespace(), "models/" + location.getPath() + ".json");
+        location = new ResourceLocation(location.getNamespace(), "models/" + location.getPath() + ".json#inventory");
         try {
             BlockModel model = BlockModel.fromStream(Minecraft.getInstance().getResourceManager().openAsReader(location));
             return new SimpleItemModelOverride(new SimpleBakedModel.Builder(model, ItemOverrides.EMPTY, false).build(RenderTypeGroup.EMPTY));

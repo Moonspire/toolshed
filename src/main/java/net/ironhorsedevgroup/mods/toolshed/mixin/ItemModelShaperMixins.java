@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.toolshed.mixin.render;
+package net.ironhorsedevgroup.mods.toolshed.mixin;
 
 import net.ironhorsedevgroup.mods.toolshed.content_packs.ItemModelOverrides;
 import net.minecraft.client.renderer.ItemModelShaper;

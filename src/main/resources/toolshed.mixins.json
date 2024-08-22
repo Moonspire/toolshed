@@ -7,7 +7,7 @@
   "mixins": [
   ],
   "client": [
-    "render.ItemModelShaperMixins"
+    "ItemModelShaperMixins"
   ],
   "injectors": {
     "defaultRequire": 1
