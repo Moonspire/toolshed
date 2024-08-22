@@ -23,9 +23,9 @@ public class SimpleItemModelOverride implements ItemModelOverride {
     }
 
     public static SimpleItemModelOverride fromLocation(ResourceLocation location) {
-        location = new ResourceLocation(location.getNamespace(), "models/" + location.getPath());
+        location = new ResourceLocation(location.getNamespace(), "models/" + location.getPath() + ".json");
         try {
-            BlockModel model = BlockModel.fromStream(Minecraft.getInstance().getResourceManager().openAsReader(location));
+            BlockModel model = BlockModel.fromStream(Minecraft.getInstance().getResourceManager().getResource(location).get().openAsReader());
             return new SimpleItemModelOverride(new SimpleBakedModel.Builder(model, ItemOverrides.EMPTY, false).build(RenderTypeGroup.EMPTY));
         } catch (Exception ignored) {
             Toolshed.LOGGER.error("Failed to load model at {}", location);

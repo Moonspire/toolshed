@@ -24,12 +24,10 @@ public class Data {
     }
 
     public static JsonObject readAssets(ResourceLocation location) {
-        location = new ResourceLocation(location.getNamespace(), location.getPath() + ".json");
         return readJson(location, Minecraft.getInstance().getResourceManager());
     }
 
     public static JsonObject readData(ResourceLocation location, MinecraftServer server) {
-        location = new ResourceLocation(location.getNamespace(), location.getPath() + ".json");
         return readJson(location, server.getResourceManager());
     }
 
