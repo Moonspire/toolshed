@@ -43,4 +43,9 @@ public class SimpleItemModelOverride implements ItemModelOverride {
     public BakedModel getModel(Item item) {
         return model;
     }
+
+    @Override
+    public BakedModel getModel() {
+        return model;
+    }
 }

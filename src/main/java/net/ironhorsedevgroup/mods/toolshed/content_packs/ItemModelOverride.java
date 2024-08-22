@@ -7,4 +7,5 @@ import net.minecraft.world.item.ItemStack;
 public interface ItemModelOverride {
     BakedModel getModel(ItemStack stack);
     BakedModel getModel(Item item);
+    BakedModel getModel();
 }
