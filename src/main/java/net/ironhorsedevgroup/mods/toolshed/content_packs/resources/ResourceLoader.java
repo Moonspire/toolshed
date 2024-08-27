@@ -37,7 +37,7 @@ public class ResourceLoader {
         ResourceManager manager = Minecraft.getInstance().getResourceManager();
         for (String namespace : manager.getNamespaces()) {
             for (String handler : handlers.keySet()) {
-                Optional<Resource> resource = manager.getResource(new ResourceLocation(namespace, handler));
+                Optional<Resource> resource = manager.getResource(new ResourceLocation(namespace, handler + ".json"));
                 if (resource.isPresent()) {
                     try {
                         JsonReader reader = new JsonReader(resource.get().openAsReader());
