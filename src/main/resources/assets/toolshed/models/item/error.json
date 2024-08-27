@@ -1,0 +1,7 @@
+{
+  "parent": "toolshed:special/error",
+  "textures": {
+    "0": "toolshed:items/error",
+    "particle": "toolshed:items/error"
+  }
+}

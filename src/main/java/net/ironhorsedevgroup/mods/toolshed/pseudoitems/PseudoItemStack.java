@@ -8,6 +8,7 @@ import net.minecraft.world.level.ItemLike;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated(since = "1.0.4", forRemoval = true)
 public class PseudoItemStack implements ItemLike {
     public List<ItemLike> items = new ArrayList<>();
 

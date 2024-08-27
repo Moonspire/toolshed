@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.toolshed.content_packs;
+package net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model;
 
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.Item;
@@ -11,7 +11,9 @@ public class ItemModelOverrides {
     private static final Map<Item, ItemModelOverride> models = new HashMap<>();
 
     public static void registerItem(Item item, ItemModelOverride override) {
-        models.put(item, override);
+        if (!isOverwrote(item)) {
+            models.put(item, override);
+        }
     }
 
     public static boolean isOverwrote(Item item) {

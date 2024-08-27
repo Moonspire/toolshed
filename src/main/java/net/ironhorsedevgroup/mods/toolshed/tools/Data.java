@@ -23,10 +23,12 @@ public class Data {
         return new JsonObject();
     }
 
+    @Deprecated(since = "1.0.4, use AssetLoader.loadJson", forRemoval = true)
     public static JsonObject readAssets(ResourceLocation location) {
         return readJson(location, Minecraft.getInstance().getResourceManager());
     }
 
+    @Deprecated(since = "1.0.4, use DataLoader.loadJson", forRemoval = true)
     public static JsonObject readData(ResourceLocation location, MinecraftServer server) {
         return readJson(location, server.getResourceManager());
     }

@@ -10,6 +10,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 
+@Deprecated(since = "1.0.4", forRemoval = true)
 public class PseudoItem implements ItemLike {
     private ResourceLocation location;
     private ItemStack stack = new ItemStack(Items.APPLE);

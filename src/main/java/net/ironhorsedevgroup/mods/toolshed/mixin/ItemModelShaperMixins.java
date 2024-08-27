@@ -1,6 +1,6 @@
 package net.ironhorsedevgroup.mods.toolshed.mixin;
 
-import net.ironhorsedevgroup.mods.toolshed.content_packs.ItemModelOverrides;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model.ItemModelOverrides;
 import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.item.ItemStack;

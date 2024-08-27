@@ -1,0 +1,5 @@
+{
+  "models": [
+    "toolshed:error#inventory"
+  ]
+}
