@@ -1,5 +1,5 @@
 {
   "models": [
-    "toolshed:error#inventory"
+    "toolshed:error"
   ]
 }

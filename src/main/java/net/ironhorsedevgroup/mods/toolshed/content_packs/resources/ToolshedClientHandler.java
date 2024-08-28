@@ -18,7 +18,7 @@ public class ToolshedClientHandler implements ResourceFileHandler {
     public void fromJson(JsonObject json) {
         if (json.has("models")) {
             for (JsonElement entry : json.getAsJsonArray("models")) {
-                forceLoadModels.add(new ModelResourceLocation(entry.getAsString()));
+                forceLoadModels.add(new ModelResourceLocation(entry.getAsString(), "inventory"));
             }
         }
     }

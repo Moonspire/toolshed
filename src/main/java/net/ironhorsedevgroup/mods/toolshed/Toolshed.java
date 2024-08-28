@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -51,6 +52,10 @@ public class Toolshed {
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
         DataLoader.loadServer(event);
+    }
+
+    @SubscribeEvent
+    public void onPlayerJoined(PlayerEvent.PlayerLoggedInEvent event) {
     }
 
     @Mod.EventBusSubscriber

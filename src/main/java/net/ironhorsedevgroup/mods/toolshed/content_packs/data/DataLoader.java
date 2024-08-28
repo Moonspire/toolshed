@@ -23,7 +23,8 @@ public class DataLoader {
     }
 
     public static void loadServer(ServerStartingEvent event) {
-        ResourceManager manager = event.getServer().getResourceManager();
+        MinecraftServer server = event.getServer();
+        ResourceManager manager = server.getResourceManager();
         for (String namespace : manager.getNamespaces()) {
             for (String handler : handlers.keySet()) {
                 Optional<Resource> resource = manager.getResource(new ResourceLocation(namespace, handler + ".json"));
