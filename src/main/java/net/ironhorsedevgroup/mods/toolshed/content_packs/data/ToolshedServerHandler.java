@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.event.server.ServerStartingEvent;
 
 import java.util.ArrayList;
@@ -27,5 +28,10 @@ public class ToolshedServerHandler implements DataFileHandler {
     public void serverSetupEvent(ServerStartingEvent event) {
         Materials.loadMaterials(materials, event.getServer());
         materials = null;
+    }
+
+    @Override
+    public void joinSTC(ServerPlayer player) {
+        Materials.sendMaterials(player);
     }
 }

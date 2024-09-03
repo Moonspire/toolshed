@@ -5,6 +5,7 @@ import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.ResourceLoader;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.ToolshedClientHandler;
 import net.ironhorsedevgroup.mods.toolshed.interfaces.ItemRightClickTrigger;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -82,6 +83,11 @@ public class Toolshed {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        DataLoader.playerJoinEvent(event);
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent

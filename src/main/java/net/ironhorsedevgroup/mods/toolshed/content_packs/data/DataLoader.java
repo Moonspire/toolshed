@@ -1,15 +1,16 @@
 package net.ironhorsedevgroup.mods.toolshed.content_packs.data;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 
 import java.io.IOException;
@@ -51,5 +52,13 @@ public class DataLoader {
 
     public static JsonObject loadJson(ResourceLocation location, MinecraftServer server) {
         return Data.readJson(location, server.getResourceManager());
+    }
+
+    public static void playerJoinEvent(PlayerEvent.PlayerLoggedInEvent event) {
+        ServerPlayer player = event.getEntity().getServer().getPlayerList().getPlayer(event.getEntity().getUUID());
+
+        for (DataFileHandler handler : handlers.values()) {
+            handler.joinSTC(player);
+        }
     }
 }
