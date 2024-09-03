@@ -5,6 +5,7 @@ import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.ResourceLoader;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.ToolshedClientHandler;
 import net.ironhorsedevgroup.mods.toolshed.interfaces.ItemRightClickTrigger;
+import net.ironhorsedevgroup.mods.toolshed.network.ToolshedMessages;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -47,6 +48,7 @@ public class Toolshed {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+        event.enqueueWork(ToolshedMessages::register);
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

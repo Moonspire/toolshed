@@ -47,7 +47,7 @@ public class ResourceLoader {
                     JsonObject json = parser.parse(reader).getAsJsonObject();
                     for (String handler : handlers.keySet()) {
                         if (json.has(handler)) {
-                            handlers.get(handler).fromJson(json.getAsJsonObject("handler"));
+                            handlers.get(handler).fromJson(json.getAsJsonObject(handler));
                         }
                     }
                 } catch (IOException e) {
