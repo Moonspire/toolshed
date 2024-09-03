@@ -1,9 +1,11 @@
 package net.ironhorsedevgroup.mods.toolshed.content_packs.resources;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
+import net.ironhorsedevgroup.mods.toolshed.network.ToolshedMessages;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -21,13 +24,13 @@ import java.util.Optional;
 public class ResourceLoader {
     private static final Map<String, ResourceFileHandler> handlers = new HashMap<>();
 
-    public static void addPackAssetFile(String fileName, ResourceFileHandler handler) {
+    public static void addPackAssetHandler(String fileName, ResourceFileHandler handler) {
         handlers.put(fileName, handler);
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void loadClientModels(ModelEvent.RegisterAdditional event) {
-        for (ResourceFileHandler handler : handlers.values()) {
+        if (handlers.containsKey(Toolshed.MODID) && handlers.get(Toolshed.MODID) instanceof ToolshedClientHandler handler) {
             handler.addModelEvent(event);
         }
     }
@@ -36,16 +39,19 @@ public class ResourceLoader {
     public static void loadClient(FMLClientSetupEvent event) {
         ResourceManager manager = Minecraft.getInstance().getResourceManager();
         for (String namespace : manager.getNamespaces()) {
-            for (String handler : handlers.keySet()) {
-                Optional<Resource> resource = manager.getResource(new ResourceLocation(namespace, handler + ".json"));
-                if (resource.isPresent()) {
-                    try {
-                        JsonReader reader = new JsonReader(resource.get().openAsReader());
-                        JsonParser parser = new JsonParser();
-                        handlers.get(handler).fromJson(parser.parse(reader).getAsJsonObject());
-                    } catch (Exception e) {
-                        Toolshed.LOGGER.error("Malformed JSON: {}:{}", namespace, handler);
+            Optional<Resource> resource = manager.getResource(new ResourceLocation(namespace, Toolshed.MODID + ".json"));
+            if (resource.isPresent()) {
+                try {
+                    JsonReader reader = new JsonReader(resource.get().openAsReader());
+                    JsonParser parser = new JsonParser();
+                    JsonObject json = parser.parse(reader).getAsJsonObject();
+                    for (String handler : handlers.keySet()) {
+                        if (json.has(handler)) {
+                            handlers.get(handler).fromJson(json.getAsJsonObject("handler"));
+                        }
                     }
+                } catch (IOException e) {
+                    Toolshed.LOGGER.error("Malformed toolshed.json in {}", namespace);
                 }
             }
         }

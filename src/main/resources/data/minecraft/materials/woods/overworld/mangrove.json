@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "color": [173, 69, 76],
+    "flammable": true,
+    "density": 5,
+    "hardness": 7,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:mangrove_planks"
+    }
+  }
+}

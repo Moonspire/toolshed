@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "color": [99, 68, 34],
+    "flammable": true,
+    "density": 9,
+    "hardness": 8,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:dark_oak_planks"
+    }
+  }
+}

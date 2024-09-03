@@ -4,6 +4,6 @@ import com.google.gson.JsonObject;
 import net.minecraftforge.event.server.ServerStartingEvent;
 
 public interface DataFileHandler {
-    void fromJson(JsonObject object);
+    void fromJson(JsonObject json);
     void serverSetupEvent(ServerStartingEvent event);
 }

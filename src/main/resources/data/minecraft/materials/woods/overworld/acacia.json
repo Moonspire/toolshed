@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "color": [219, 117, 62],
+    "flammable": true,
+    "density": 10,
+    "hardness": 10,
+    "purity": 10
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:acacia_planks"
+    }
+  }
+}

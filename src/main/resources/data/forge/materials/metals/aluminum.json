@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "color": [204, 235, 231],
+    "density": 27,
+    "hardness": 27,
+    "purity": 90
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "tag",
+      "ingredient": "forge:ingots/aluminum"
+    },
+    "casting_fluid": "tconstruct:molten_aluminum",
+    "castable": true
+  }
+}

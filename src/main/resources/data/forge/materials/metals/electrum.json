@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "color": [237, 223, 129],
+    "density": 88,
+    "hardness": 35,
+    "purity": 90
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "tag",
+      "ingredient": "forge:ingots/electrum"
+    },
+    "casting_fluid": "tconstruct:molten_electrum",
+    "castable": true
+  }
+}

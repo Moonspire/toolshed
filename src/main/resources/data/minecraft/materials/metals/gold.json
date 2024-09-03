@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "color": [253, 245, 95],
+    "density": 193,
+    "hardness": 25,
+    "purity": 100
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:gold_ingot"
+    },
+    "casting_fluid": "tconstruct:molten_gold",
+    "castable": true
+  }
+}

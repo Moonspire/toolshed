@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "color": [233, 218, 139],
+    "flammable": true,
+    "density": 8,
+    "hardness": 8,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:birch_planks"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "toolshed": {
+    "materials": [
+      "minecraft:materials/metals/copper",
+      "minecraft:materials/metals/gold",
+      "minecraft:materials/metals/iron",
+      "minecraft:materials/misc/bone",
+      "minecraft:materials/misc/shulker",
+      "minecraft:materials/woods/nether/crimson",
+      "minecraft:materials/woods/nether/warped",
+      "minecraft:materials/woods/overworld/acacia",
+      "minecraft:materials/woods/overworld/birch",
+      "minecraft:materials/woods/overworld/dark_oak",
+      "minecraft:materials/woods/overworld/jungle",
+      "minecraft:materials/woods/overworld/mangrove",
+      "minecraft:materials/woods/overworld/oak",
+      "minecraft:materials/woods/overworld/spruce",
+      "forge:materials/metals/brass",
+      "forge:materials/metals/electrum",
+      "forge:materials/metals/lead",
+      "forge:materials/metals/silver",
+      "forge:materials/metals/steel",
+      "forge:materials/metals/aluminum"
+    ]
+  }
+}

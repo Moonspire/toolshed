@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ToolshedClientHandler implements ResourceFileHandler {
-    private final List<ModelResourceLocation> forceLoadModels = new ArrayList<>();
+    private List<ModelResourceLocation> forceLoadModels = new ArrayList<>();
 
     public ToolshedClientHandler() {}
 
@@ -28,10 +28,10 @@ public class ToolshedClientHandler implements ResourceFileHandler {
 
     }
 
-    @Override
     public void addModelEvent(ModelEvent.RegisterAdditional event) {
         for (ModelResourceLocation model : forceLoadModels) {
             event.register(model);
         }
+        forceLoadModels = null;
     }
 }

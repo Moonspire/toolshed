@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "color": [200, 229, 255],
+    "density": 104,
+    "hardness": 235,
+    "purity": 85
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "tag",
+      "ingredient": "forge:ingots/silver"
+    },
+    "casting_fluid": "tconstruct:molten_silver",
+    "castable": true
+  }
+}

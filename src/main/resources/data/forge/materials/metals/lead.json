@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "color": [68, 75, 91],
+    "density": 114,
+    "hardness": 25,
+    "purity": 50
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "tag",
+      "ingredient": "forge:ingots/lead"
+    },
+    "casting_fluid": "tconstruct:molten_lead",
+    "castable": true
+  }
+}

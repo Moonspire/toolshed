@@ -1,0 +1,14 @@
+{
+  "properties": {
+    "color": [164, 69, 106],
+    "density": 13,
+    "hardness": 9,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:crimson_planks"
+    }
+  }
+}

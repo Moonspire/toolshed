@@ -1,0 +1,14 @@
+{
+  "properties": {
+    "color": [227, 211, 182],
+    "density": 12,
+    "hardness": 15,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:bone"
+    }
+  }
+}

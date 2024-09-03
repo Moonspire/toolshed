@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "color": [224, 175, 96],
+    "flammable": true,
+    "density": 9,
+    "hardness": 8,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:oak"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "properties": {
+    "color": [182, 128, 180],
+    "density": -12,
+    "hardness": 15,
+    "purity": 1
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:shulker_shell"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "color": [255, 203, 92],
+    "density": 82,
+    "hardness": 30,
+    "purity": 90
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "tag",
+      "ingredient": "forge:ingots/brass"
+    },
+    "casting_fluid": "tconstruct:molten_brass",
+    "castable": true
+  }
+}

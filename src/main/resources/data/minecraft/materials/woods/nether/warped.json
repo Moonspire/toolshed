@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "color": [65, 167, 165],
+    "flammable": true,
+    "density": 4,
+    "hardness": 6,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:warped_planks"
+    }
+  }
+}

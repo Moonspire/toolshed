@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "color": [110, 197, 159],
+    "density": 87,
+    "hardness": 35,
+    "purity": 65
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:copper_ingot"
+    },
+    "casting_fluid": "tconstruct:molten_copper"
+  }
+}

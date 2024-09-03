@@ -1,0 +1,16 @@
+{
+  "properties": {
+    "color": [88, 89, 93],
+    "density": 77,
+    "hardness": 80,
+    "purity": 70
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "tag",
+      "ingredient": "forge:ingots/steel"
+    },
+    "casting_fluid": "tconstruct:molten_steel",
+    "castable": true
+  }
+}

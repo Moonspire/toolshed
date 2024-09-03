@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "color": [196, 159, 134],
+    "density": 78,
+    "hardness": 65,
+    "purity": 40
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:iron_ingot"
+    },
+    "casting_fluid": "tconstruct:molten_iron"
+  }
+}

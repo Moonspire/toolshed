@@ -34,7 +34,7 @@ public class Toolshed {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public Toolshed() {
-        ResourceLoader.addPackAssetFile(MODID, new ToolshedClientHandler());
+        ResourceLoader.addPackAssetHandler(MODID, new ToolshedClientHandler());
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 

@@ -1,0 +1,15 @@
+{
+  "properties": {
+    "color": [218, 155, 111],
+    "flammable": true,
+    "density": 10,
+    "hardness": 5,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "minecraft:jungle_planks"
+    }
+  }
+}
