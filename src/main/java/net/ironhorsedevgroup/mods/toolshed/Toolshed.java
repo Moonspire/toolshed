@@ -2,6 +2,7 @@ package net.ironhorsedevgroup.mods.toolshed;
 
 import com.mojang.logging.LogUtils;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.data.ToolshedServerHandler;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.ResourceLoader;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.ToolshedClientHandler;
 import net.ironhorsedevgroup.mods.toolshed.interfaces.ItemRightClickTrigger;
@@ -36,6 +37,7 @@ public class Toolshed {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public Toolshed() {
+        DataLoader.addPackDataHandler(MODID, new ToolshedServerHandler());
         ResourceLoader.addPackAssetHandler(MODID, new ToolshedClientHandler());
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

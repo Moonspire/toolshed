@@ -45,6 +45,7 @@ public class DataLoader {
                 }
             }
         }
+
         for (DataFileHandler handler : handlers.values()) {
             handler.serverSetupEvent(event);
         }
