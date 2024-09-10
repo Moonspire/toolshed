@@ -26,7 +26,6 @@ public class SimpleItemModelOverride implements ItemModelOverride {
         //CompositeModel.Baked.Builder builder = CompositeModel.Baked.builder(false, true, false, model.getMaterial("particle").sprite(), ItemOverrides.EMPTY, model.getTransforms());
     }
 
-
     @Override
     public BakedModel getModel(ItemStack stack) {
         return model;
