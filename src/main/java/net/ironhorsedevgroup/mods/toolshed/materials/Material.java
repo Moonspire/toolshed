@@ -187,5 +187,21 @@ public class Material {
         public static Crafting fromData(Data.DataObject data) {
             return fromJson(data.get().getAsJsonObject());
         }
+
+        public ResourceLocation getCraftingLocation() {
+            return craftingLocation;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public ResourceLocation getCastingFluid() {
+            return castingFluid;
+        }
+
+        public boolean isCastable() {
+            return castable;
+        }
     }
 }
