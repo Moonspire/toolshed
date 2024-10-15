@@ -1,13 +1,12 @@
 package net.ironhorsedevgroup.mods.toolshed;
 
 import com.mojang.logging.LogUtils;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.data.ToolshedServerHandler;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.ResourceLoader;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.ToolshedClientHandler;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.DataLoader;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.ToolshedServerHandler;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets.ResourceLoader;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets.ToolshedClientHandler;
 import net.ironhorsedevgroup.mods.toolshed.interfaces.ItemRightClickTrigger;
 import net.ironhorsedevgroup.mods.toolshed.network.ToolshedMessages;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;

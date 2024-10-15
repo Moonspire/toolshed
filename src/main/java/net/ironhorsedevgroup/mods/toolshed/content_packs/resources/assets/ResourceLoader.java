@@ -1,11 +1,9 @@
-package net.ironhorsedevgroup.mods.toolshed.content_packs.resources;
+package net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
-import net.ironhorsedevgroup.mods.toolshed.network.ToolshedMessages;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;

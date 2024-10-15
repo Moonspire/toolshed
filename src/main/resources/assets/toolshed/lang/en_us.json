@@ -1,0 +1,25 @@
+{
+  "toolshed.material.null": "Null",
+  "toolshed.material.minecraft.copper": "Copper",
+  "toolshed.material.minecraft.gold": "Gold",
+  "toolshed.material.minecraft.iron": "Iron",
+  "toolshed.material.minecraft.bone": "Bone",
+  "toolshed.material.minecraft.shulker": "Shulker Shells",
+  "toolshed.material.minecraft.crimson": "Crimson Hyphae",
+  "toolshed.material.minecraft.warped": "Warped Hyphae",
+  "toolshed.material.minecraft.acacia": "Acacia Wood",
+  "toolshed.material.minecraft.birch": "Birch Wood",
+  "toolshed.material.minecraft.dark_oak": "Dark Oak Wood",
+  "toolshed.material.minecraft.jungle": "Jungle Wood",
+  "toolshed.material.minecraft.mangrove": "Mangrove Wood",
+  "toolshed.material.minecraft.oak": "Oak Wood",
+  "toolshed.material.minecraft.spruce": "Spruce Wood",
+  "toolshed.material.forge.aluminum": "Aluminum",
+  "toolshed.material.forge.brass": "Brass",
+  "toolshed.material.forge.electrum": "Electrum",
+  "toolshed.material.forge.lead": "Lead",
+  "toolshed.material.forge.silver": "Silver",
+  "toolshed.material.forge.steel": "Steel",
+
+  "tooltip.toolshed.material": "Material"
+}

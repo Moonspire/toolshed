@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.toolshed.content_packs.resources;
+package net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -32,6 +32,6 @@ public class ToolshedClientHandler implements ResourceFileHandler {
         for (ModelResourceLocation model : forceLoadModels) {
             event.register(model);
         }
-        forceLoadModels = null;
+        forceLoadModels = new ArrayList<>();
     }
 }

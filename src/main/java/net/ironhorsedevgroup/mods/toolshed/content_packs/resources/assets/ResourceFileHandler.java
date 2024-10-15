@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.toolshed.content_packs.resources;
+package net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets;
 
 import com.google.gson.JsonObject;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;

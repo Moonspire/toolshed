@@ -1,7 +1,7 @@
 package net.ironhorsedevgroup.mods.toolshed.materials;
 
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
-import net.ironhorsedevgroup.mods.toolshed.content_packs.data.DataLoader;
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.network.ToolshedMessages;
 import net.ironhorsedevgroup.mods.toolshed.network.stc.MaterialColorPacket;
 import net.minecraft.resources.ResourceLocation;

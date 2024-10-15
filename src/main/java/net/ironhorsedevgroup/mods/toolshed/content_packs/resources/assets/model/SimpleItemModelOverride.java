@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.toolshed.content_packs.resources.model;
+package net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets.model;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.*;

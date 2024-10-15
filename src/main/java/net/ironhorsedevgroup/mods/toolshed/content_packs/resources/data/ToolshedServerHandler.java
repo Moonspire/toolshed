@@ -1,4 +1,4 @@
-package net.ironhorsedevgroup.mods.toolshed.content_packs.data;
+package net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
