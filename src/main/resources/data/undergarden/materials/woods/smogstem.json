@@ -1,0 +1,16 @@
+{
+  "requires": "undergarden",
+  "properties": {
+    "color": [93, 121, 114],
+    "flammable": true,
+    "density": 15,
+    "hardness": 15,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "undergarden:smogstem_planks"
+    }
+  }
+}

@@ -1,6 +1,17 @@
 {
   "toolshed": {
     "materials": [
+      "createbigcannons:materials/metals/nethersteel",
+
+      "forge:materials/metals/brass",
+      "forge:materials/metals/electrum",
+      "forge:materials/metals/lead",
+      "forge:materials/metals/silver",
+      "forge:materials/metals/steel",
+      "forge:materials/metals/aluminum",
+
+      "immersiveengineering:materials/woods/treated",
+
       "minecraft:materials/metals/copper",
       "minecraft:materials/metals/gold",
       "minecraft:materials/metals/iron",
@@ -15,12 +26,20 @@
       "minecraft:materials/woods/overworld/mangrove",
       "minecraft:materials/woods/overworld/oak",
       "minecraft:materials/woods/overworld/spruce",
-      "forge:materials/metals/brass",
-      "forge:materials/metals/electrum",
-      "forge:materials/metals/lead",
-      "forge:materials/metals/silver",
-      "forge:materials/metals/steel",
-      "forge:materials/metals/aluminum"
+
+      "pigsteel:materials/metals/pigsteel",
+
+      "quark:materials/woods/ancient",
+      "quark:materials/woods/azalea",
+      "quark:materials/woods/blossom",
+
+      "tconstruct:materials/metals/copper",
+      "tconstruct:materials/metals/iron",
+
+      "undergarden:materials/metals/cloggrum",
+      "undergarden:materials/woods/grongle",
+      "undergarden:materials/woods/smogstem",
+      "undergarden:materials/woods/wigglewood"
     ]
   }
 }

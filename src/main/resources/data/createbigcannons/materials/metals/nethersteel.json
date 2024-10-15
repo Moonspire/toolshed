@@ -1,0 +1,15 @@
+{
+  "requires": "createbigcannons",
+  "properties": {
+    "color": [117, 99, 91],
+    "density": 80,
+    "hardness": 95,
+    "purity": 100
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "createbigcannons:nethersteel_ingot"
+    }
+  }
+}

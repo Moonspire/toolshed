@@ -1,0 +1,16 @@
+{
+  "requires": "undergarden",
+  "properties": {
+    "color": [108, 120, 67],
+    "flammable": true,
+    "density": 10,
+    "hardness": 10,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "undergarden:grongle_planks"
+    }
+  }
+}

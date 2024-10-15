@@ -1,0 +1,16 @@
+{
+  "requires": "quark",
+  "properties": {
+    "color": [221, 227, 122],
+    "flammable": true,
+    "density": 9,
+    "hardness": 8,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "quark:azalea_planks"
+    }
+  }
+}

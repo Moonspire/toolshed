@@ -1,0 +1,16 @@
+{
+  "requires": "undergarden",
+  "properties": {
+    "color": [126, 95, 59],
+    "flammable": true,
+    "density": 9,
+    "hardness": 10,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "undergarden:wigglewood_planks"
+    }
+  }
+}

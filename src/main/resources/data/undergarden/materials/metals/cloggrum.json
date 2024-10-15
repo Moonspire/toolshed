@@ -1,0 +1,15 @@
+{
+  "requires": "undergarden",
+  "properties": {
+    "color": [215, 188, 155],
+    "density": 79,
+    "hardness": 90,
+    "purity": 30
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "undergarden:cloggrum_ingot"
+    }
+  }
+}

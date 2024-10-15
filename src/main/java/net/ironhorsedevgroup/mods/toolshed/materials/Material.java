@@ -10,37 +10,41 @@ import net.minecraft.resources.ResourceLocation;
 public class Material {
     private final Properties properties;
     private final Crafting crafting;
+    private final String requires;
 
     public Material() {
         this.properties = new Properties();
         this.crafting = new Crafting();
+        this.requires = "";
     }
 
-    private Material(Properties properties, Crafting crafting) {
+    private Material(Properties properties, Crafting crafting, String requires) {
         this.properties = properties;
         this.crafting = crafting;
+        this.requires = requires;
     }
 
     public static Material fromJson(JsonObject json) {
+        String requires = "";
+        if (json.has("requires")) {
+            requires = json.get("requires").getAsString();
+        }
         Data.DataObject data = new Data.DataObject(json);
         Properties properties = Properties.fromData(data.getObject("properties"));
         Crafting crafting = Crafting.fromData(data.getObject("crafting"));
 
-        return new Material(properties, crafting);
-    }
-
-    public static Material fromData(Data.DataObject data) {
-        Properties properties = Properties.fromData(data);
-        Crafting crafting = Crafting.fromData(data);
-
-        return new Material(properties, crafting);
+        return new Material(properties, crafting, requires);
     }
 
     public static Material fromPacket(MaterialColorPacket packet) {
         Properties properties = Properties.fromPacket(packet);
         Crafting crafting = new Crafting();
 
-        return new Material(properties, crafting);
+        return new Material(properties, crafting, "");
+    }
+
+    public String getRequirement() {
+        return requires;
     }
 
     public Properties getProperties() {

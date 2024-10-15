@@ -1,0 +1,16 @@
+{
+  "requires": "pigsteel",
+  "properties": {
+    "color": [224, 180, 221],
+    "density": 79,
+    "hardness": 70,
+    "purity": 70
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "pigsteel:pigsteel_ingot"
+    },
+    "casting_fluid": "tconstruct:molten_iron"
+  }
+}

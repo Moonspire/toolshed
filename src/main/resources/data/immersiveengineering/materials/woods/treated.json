@@ -1,0 +1,15 @@
+{
+  "requires": "immersiveengineering",
+  "properties": {
+    "color": [117, 63, 38],
+    "density": 10,
+    "hardness": 7,
+    "purity": 6
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "immersiveengineering:treated_wood_horizontal"
+    }
+  }
+}

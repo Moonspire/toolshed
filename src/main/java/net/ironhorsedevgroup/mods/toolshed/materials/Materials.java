@@ -9,6 +9,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.ModList;
 
 import java.util.*;
 
@@ -26,6 +27,11 @@ public class Materials {
 
     public static void loadMaterial(ResourceLocation location, MinecraftServer server) {
         Material material = Material.fromJson(DataLoader.loadJson(location, server));
+        if (!Objects.equals(material.getRequirement(), "")) {
+            if (!ModList.get().isLoaded(material.getRequirement())) {
+                return;
+            }
+        }
         String[] strippedPath = location.getPath().split("/");
         location = new ResourceLocation(location.getNamespace(), strippedPath[strippedPath.length - 1]);
         Toolshed.LOGGER.info("Registering server material: {}", location);

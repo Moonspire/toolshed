@@ -1,0 +1,16 @@
+{
+  "requires": "quark",
+  "properties": {
+    "color": [255, 255, 255],
+    "flammable": true,
+    "density": 6,
+    "hardness": 7,
+    "purity": 5
+  },
+  "crafting": {
+    "crafting_item": {
+      "type": "item",
+      "ingredient": "quark:ancient_planks"
+    }
+  }
+}

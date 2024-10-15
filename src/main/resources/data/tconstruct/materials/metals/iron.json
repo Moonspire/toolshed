@@ -1,0 +1,13 @@
+{
+  "requires": "tconstruct",
+  "properties": {
+    "color": [80, 89, 115],
+    "density": 78,
+    "hardness": 70,
+    "purity": 60
+  },
+  "crafting": {
+    "casting_fluid": "tconstruct:molten_iron",
+    "castable": true
+  }
+}
