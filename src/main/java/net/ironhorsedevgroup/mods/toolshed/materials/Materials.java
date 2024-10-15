@@ -91,6 +91,7 @@ public class Materials {
 
     private static Material get(ResourceLocation location) {
         Material material = materials.get(location);
+        /*
         Toolshed.LOGGER.info(
                 "Material queried: {}! Properties: D {}, H {}, P {}; Color: {}",
                 location,
@@ -98,7 +99,7 @@ public class Materials {
                 material.getProperties().getHardness(),
                 material.getProperties().getPurity(),
                 material.getProperties().getColor()
-        );
+        );*/
         return material;
     }
 
