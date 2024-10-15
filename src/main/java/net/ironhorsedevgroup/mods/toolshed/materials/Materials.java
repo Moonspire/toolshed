@@ -4,6 +4,7 @@ import net.ironhorsedevgroup.mods.toolshed.Toolshed;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.network.ToolshedMessages;
 import net.ironhorsedevgroup.mods.toolshed.network.stc.MaterialColorPacket;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -80,12 +81,25 @@ public class Materials {
     public static Material getMaterial(ResourceLocation location) {
         if (!Objects.equals(location, null) && !erroredMaterials.contains(location)) {
             if (materials.containsKey(location)) {
-                return materials.get(location);
+                return get(location);
             }
             Toolshed.LOGGER.error("Could not locate material: {}", location);
             erroredMaterials.add(location);
         }
         return getNull();
+    }
+
+    private static Material get(ResourceLocation location) {
+        Material material = materials.get(location);
+        Toolshed.LOGGER.info(
+                "Material queried: {}! Properties: D {}, H {}, P {}; Color: {}",
+                location,
+                material.getProperties().getDensity(),
+                material.getProperties().getHardness(),
+                material.getProperties().getPurity(),
+                material.getProperties().getColor()
+        );
+        return material;
     }
 
     public static String getMaterialLang(ResourceLocation location) {
