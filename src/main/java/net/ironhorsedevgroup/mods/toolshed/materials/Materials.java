@@ -32,7 +32,7 @@ public class Materials {
         updateMaterial(location, material);
     }
 
-    public static List<ResourceLocation> getServerMaterials() {
+    public static List<ResourceLocation> getMaterials() {
         return materials.keySet().stream().toList();
     }
 
