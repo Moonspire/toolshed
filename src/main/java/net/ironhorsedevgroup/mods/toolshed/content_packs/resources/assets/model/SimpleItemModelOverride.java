@@ -23,7 +23,7 @@ public class SimpleItemModelOverride implements ItemModelOverride {
         location = new ModelResourceLocation(location, "inventory");
         return new SimpleItemModelOverride(manager.getModel(location));
 
-        //CompositeModel.Baked.Builder builder = CompositeModel.Baked.builder(false, true, false, model.getMaterial("particle").sprite(), ItemOverrides.EMPTY, model.getTransforms());
+        //CompositeModel.Baked.Builder builder = CompositeModel.Baked.builder(false, true, false, model.getServerMaterial("particle").sprite(), ItemOverrides.EMPTY, model.getTransforms());
     }
 
     @Override
