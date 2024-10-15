@@ -29,7 +29,7 @@ public class Materials {
         String[] strippedPath = location.getPath().split("/");
         location = new ResourceLocation(location.getNamespace(), strippedPath[strippedPath.length - 1]);
         Toolshed.LOGGER.info("Registering server material: {}", location);
-        updateServerMaterial(location, material);
+        updateMaterial(location, material);
     }
 
     public static List<ResourceLocation> getServerMaterials() {
@@ -48,7 +48,7 @@ public class Materials {
         erroredMaterials.remove(location);
     }
 
-    public static void updateServerMaterial(ResourceLocation location, Material material) {
+    public static void updateMaterial(ResourceLocation location, Material material) {
         materials.remove(location);
         materials.put(location, material);
     }
@@ -63,22 +63,22 @@ public class Materials {
         return new Material();
     }
 
-    public static boolean hasServerMaterial(ResourceLocation location) {
+    public static boolean hasMaterial(ResourceLocation location) {
         return materials.containsKey(location);
     }
 
-    public static Material getServerMaterial(String namespace, String path) {
-        return getServerMaterial(new ResourceLocation(namespace, path));
+    public static Material getMaterial(String namespace, String path) {
+        return getMaterial(new ResourceLocation(namespace, path));
     }
 
-    public static Material getServerMaterial(String location) {
+    public static Material getMaterial(String location) {
         if (!Objects.equals(location, null)) {
-            return getServerMaterial(new ResourceLocation(location));
+            return getMaterial(new ResourceLocation(location));
         }
         return getNull();
     }
 
-    public static Material getServerMaterial(ResourceLocation location) {
+    public static Material getMaterial(ResourceLocation location) {
         if (!Objects.equals(location, null) && !erroredMaterials.contains(location)) {
             if (materials.containsKey(location)) {
                 return materials.get(location);
