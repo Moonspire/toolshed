@@ -3,16 +3,17 @@ package net.ironhorsedevgroup.mods.toolshed.materials;
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.network.ToolshedMessages;
-import net.ironhorsedevgroup.mods.toolshed.network.stc.MaterialColorPacket;
+import net.ironhorsedevgroup.mods.toolshed.network.stc.IngredientPacket;
+import net.ironhorsedevgroup.mods.toolshed.network.stc.MaterialPacket;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -22,12 +23,15 @@ public class Materials {
     private static final Map<ResourceLocation, Material> materials = new HashMap<>();
     private static final Map<ResourceLocation, Material> clientMaterials = new HashMap<>();
     private static final List<ResourceLocation> erroredMaterials = new ArrayList<>();
+    private static Ingredient serverIngredient;
+    private static Ingredient clientIngredient;
 
     public static void loadMaterials(List<ResourceLocation> materials, MinecraftServer server) {
         clearMaterials();
         for (ResourceLocation material : materials) {
             loadMaterial(material, server);
         }
+        serverIngredient = createCraftingIngredient();
     }
 
     public static void loadMaterial(ResourceLocation location, MinecraftServer server) {
@@ -65,9 +69,14 @@ public class Materials {
     }
 
     public static void sendMaterials(ServerPlayer player) {
+        ToolshedMessages.sendToPlayer(new IngredientPacket(serverIngredient), player);
         for (ResourceLocation material : materials.keySet()) {
-            ToolshedMessages.sendToPlayer(new MaterialColorPacket(material, materials.get(material)), player);
+            ToolshedMessages.sendToPlayer(new MaterialPacket(material, materials.get(material)), player);
         }
+    }
+
+    public static void loadIngredient(IngredientPacket packet) {
+        clientIngredient = packet.ingredient;
     }
 
     public static Material getNull() {
@@ -100,27 +109,32 @@ public class Materials {
         return getNull();
     }
 
+    public static Ingredient createCraftingIngredient() {
+        List<ItemStack> items = new ArrayList<>();
+        for (Material material : materials.values()) {
+            Ingredient ingredient = material.getCrafting().getCraftingIngredient();
+            if (ingredient != null) {
+                items.addAll(Arrays.stream(ingredient.getItems()).toList());
+            }
+        }
+        return Ingredient.of(items.stream());
+    }
+
     public static ResourceLocation getMaterial(ItemStack itemStack) {
         if (!NBT.getStringTag(itemStack, "material").equals("")) {
             return NBT.getLocationTag(itemStack, "material");
         }
         for (ResourceLocation key : materials.keySet()) {
             Material material = getMaterial(key);
-            if (Objects.equals(material.getCrafting().getType(), "tag")) {
-                if (itemStack.is(ItemTags.create(material.getCrafting().getCraftingLocation()))) {
-                    return key;
-                }
-            } else {
-                if (itemStack.is(ForgeRegistries.ITEMS.getValue(key))) {
-                    return key;
-                }
+            if (material.getCrafting().getCraftingIngredient().test(itemStack)) {
+                return key;
             }
         }
         return null;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void loadMaterial(MaterialColorPacket packet) {
+    public static void loadMaterial(MaterialPacket packet) {
         ResourceLocation location = packet.location;
         Toolshed.LOGGER.info("Registering client material: {}", location);
         updateClientMaterial(location, Material.fromPacket(packet));
@@ -174,14 +188,8 @@ public class Materials {
         }
         for (ResourceLocation key : materials.keySet()) {
             Material material = getClientMaterial(key);
-            if (Objects.equals(material.getCrafting().getType(), "tag")) {
-                if (itemStack.is(ItemTags.create(material.getCrafting().getCraftingLocation()))) {
-                    return key;
-                }
-            } else {
-                if (itemStack.is(ForgeRegistries.ITEMS.getValue(key))) {
-                    return key;
-                }
+            if (material.getCrafting().getCraftingIngredient().test(itemStack)) {
+                return key;
             }
         }
         return new ResourceLocation("null");

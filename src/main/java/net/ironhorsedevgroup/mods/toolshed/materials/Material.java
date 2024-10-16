@@ -2,10 +2,17 @@ package net.ironhorsedevgroup.mods.toolshed.materials;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import net.ironhorsedevgroup.mods.toolshed.network.stc.MaterialColorPacket;
+import net.ironhorsedevgroup.mods.toolshed.network.stc.MaterialPacket;
 import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
+import net.ironhorsedevgroup.mods.toolshed.tools.Tags;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Objects;
 
 public class Material {
     private final Properties properties;
@@ -36,7 +43,7 @@ public class Material {
         return new Material(properties, crafting, requires);
     }
 
-    public static Material fromPacket(MaterialColorPacket packet) {
+    public static Material fromPacket(MaterialPacket packet) {
         Properties properties = Properties.fromPacket(packet);
         Crafting crafting = new Crafting();
 
@@ -110,7 +117,7 @@ public class Material {
         }
 
 
-        public static Properties fromPacket(MaterialColorPacket packet) {
+        public static Properties fromPacket(MaterialPacket packet) {
             return new Properties(
                     packet.color,
                     false,
@@ -142,39 +149,46 @@ public class Material {
     }
 
     public static class Crafting {
-        private final ResourceLocation craftingLocation;
-        private final String type;
+        private final Ingredient ingredient;
         private final ResourceLocation castingFluid;
         private final boolean castable;
 
         public Crafting() {
-            this.craftingLocation = null;
-            this.type = null;
+            this.ingredient = null;
             this.castingFluid = null;
             this.castable = false;
         }
 
-        private Crafting(ResourceLocation craftingLocation, String type, ResourceLocation castingFluid, boolean castable) {
-            this.craftingLocation = craftingLocation;
-            this.type = type;
+        private Crafting(Ingredient ingredient, ResourceLocation castingFluid, boolean castable) {
+            this.ingredient = ingredient;
             this.castingFluid = castingFluid;
             this.castable = castable;
         }
 
         public static Crafting fromJson(JsonObject json) {
-            ResourceLocation craftingLocation = null;
-            String type = null;
+            Ingredient ingredient = null;
             ResourceLocation castingFluid = null;
             boolean castable = false;
 
             if (json.has("crafting_item")) {
                 JsonObject craftingItem = json.getAsJsonObject("crafting_item");
 
+                String type = "item";
+                ResourceLocation craftingLocation = null;
+
                 if (craftingItem.has("type")) {
                     type = craftingItem.get("type").getAsString();
                 }
 
                 craftingLocation = new ResourceLocation(craftingItem.get("ingredient").getAsString());
+
+                if (Objects.equals(type, "item")) {
+                    ingredient = Ingredient.of(ForgeRegistries.ITEMS.getValue(craftingLocation));
+                } else if (Objects.equals(type, "tag")) {
+                    ingredient = Ingredient.of(Tags.getItemTag(craftingLocation));
+                }
+            } else if (json.has("crafting_ingredient")) {
+                ingredient = Ingredient.fromJson(json.getAsJsonObject("crafting_ingredient"));
             }
 
             if (json.has("castable")) {
@@ -185,19 +199,15 @@ public class Material {
                 castingFluid = new ResourceLocation(json.get("casting_fluid").getAsString());
             }
 
-            return new Crafting(craftingLocation, type, castingFluid, castable);
+            return new Crafting(ingredient, castingFluid, castable);
         }
 
         public static Crafting fromData(Data.DataObject data) {
             return fromJson(data.get().getAsJsonObject());
         }
 
-        public ResourceLocation getCraftingLocation() {
-            return craftingLocation;
-        }
-
-        public String getType() {
-            return type;
+        public Ingredient getCraftingIngredient() {
+            return ingredient;
         }
 
         public ResourceLocation getCastingFluid() {

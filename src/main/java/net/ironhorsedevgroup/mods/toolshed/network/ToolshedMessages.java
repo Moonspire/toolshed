@@ -1,7 +1,7 @@
 package net.ironhorsedevgroup.mods.toolshed.network;
 
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
-import net.ironhorsedevgroup.mods.toolshed.network.stc.MaterialColorPacket;
+import net.ironhorsedevgroup.mods.toolshed.network.stc.MaterialPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
@@ -27,10 +27,10 @@ public class ToolshedMessages {
 
         INSTANCE = net;
 
-        net.messageBuilder(MaterialColorPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
-                .decoder(MaterialColorPacket::decode)
-                .encoder(MaterialColorPacket::encode)
-                .consumerMainThread(MaterialColorPacket::handle)
+        net.messageBuilder(MaterialPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(MaterialPacket::decode)
+                .encoder(MaterialPacket::encode)
+                .consumerMainThread(MaterialPacket::handle)
                 .add();
     }
 
