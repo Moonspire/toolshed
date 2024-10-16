@@ -9,13 +9,11 @@ import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 
@@ -193,6 +191,11 @@ public class Materials {
             }
         }
         return new ResourceLocation("null");
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static Ingredient getClientIngredient() {
+        return clientIngredient;
     }
 
     @OnlyIn(Dist.CLIENT)
