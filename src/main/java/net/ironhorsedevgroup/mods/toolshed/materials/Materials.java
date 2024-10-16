@@ -168,6 +168,26 @@ public class Materials {
     }
 
     @OnlyIn(Dist.CLIENT)
+    public static ResourceLocation getClientMaterial(ItemStack itemStack) {
+        if (!NBT.getStringTag(itemStack, "material").isEmpty()) {
+            return NBT.getLocationTag(itemStack, "material");
+        }
+        for (ResourceLocation key : materials.keySet()) {
+            Material material = getClientMaterial(key);
+            if (Objects.equals(material.getCrafting().getType(), "tag")) {
+                if (itemStack.is(ItemTags.create(material.getCrafting().getCraftingLocation()))) {
+                    return key;
+                }
+            } else {
+                if (itemStack.is(ForgeRegistries.ITEMS.getValue(key))) {
+                    return key;
+                }
+            }
+        }
+        return new ResourceLocation("null");
+    }
+
+    @OnlyIn(Dist.CLIENT)
     public static String getMaterialLang(ResourceLocation location) {
         if (!Objects.equals(location, null) && clientMaterials.containsKey(location)) {
             return Toolshed.MODID + ".material." + location.getNamespace() + "." + location.getPath();
