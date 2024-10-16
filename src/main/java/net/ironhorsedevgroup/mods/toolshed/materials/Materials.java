@@ -4,12 +4,17 @@ import net.ironhorsedevgroup.mods.toolshed.Toolshed;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.network.ToolshedMessages;
 import net.ironhorsedevgroup.mods.toolshed.network.stc.MaterialColorPacket;
+import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.*;
 
@@ -93,6 +98,25 @@ public class Materials {
             erroredMaterials.add(location);
         }
         return getNull();
+    }
+
+    public static ResourceLocation getMaterial(ItemStack itemStack) {
+        if (!NBT.getStringTag(itemStack, "material").equals("")) {
+            return NBT.getLocationTag(itemStack, "material");
+        }
+        for (ResourceLocation key : materials.keySet()) {
+            Material material = getMaterial(key);
+            if (Objects.equals(material.getCrafting().getType(), "tag")) {
+                if (itemStack.is(ItemTags.create(material.getCrafting().getCraftingLocation()))) {
+                    return key;
+                }
+            } else {
+                if (itemStack.is(ForgeRegistries.ITEMS.getValue(key))) {
+                    return key;
+                }
+            }
+        }
+        return null;
     }
 
     @OnlyIn(Dist.CLIENT)
