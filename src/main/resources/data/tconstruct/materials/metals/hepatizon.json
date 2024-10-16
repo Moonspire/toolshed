@@ -1,0 +1,13 @@
+{
+  "requires": "tconstruct",
+  "properties": {
+    "color": [113, 89, 125],
+    "density": 31,
+    "hardness": 91,
+    "purity": 53
+  },
+  "crafting": {
+    "casting_fluid": "tconstruct:molten_hepatizon",
+    "castable": true
+  }
+}

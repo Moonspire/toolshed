@@ -1,0 +1,13 @@
+{
+  "requires": "tconstruct",
+  "properties": {
+    "color": [66, 141, 215],
+    "density": 86,
+    "hardness": 98,
+    "purity": 100
+  },
+  "crafting": {
+    "casting_fluid": "tconstruct:molten_manyullyn",
+    "castable": true
+  }
+}

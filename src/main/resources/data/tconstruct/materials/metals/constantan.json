@@ -1,0 +1,13 @@
+{
+  "requires": "tconstruct",
+  "properties": {
+    "color": [178, 99, 80],
+    "density": 89,
+    "hardness": 35,
+    "purity": 93
+  },
+  "crafting": {
+    "casting_fluid": "tconstruct:molten_constantan",
+    "castable": true
+  }
+}

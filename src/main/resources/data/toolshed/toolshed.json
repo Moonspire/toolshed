@@ -3,12 +3,12 @@
     "materials": [
       "createbigcannons:materials/metals/nethersteel",
 
+      "forge:materials/metals/aluminum",
       "forge:materials/metals/brass",
       "forge:materials/metals/electrum",
       "forge:materials/metals/lead",
       "forge:materials/metals/silver",
       "forge:materials/metals/steel",
-      "forge:materials/metals/aluminum",
 
       "immersiveengineering:materials/woods/treated",
 
@@ -35,6 +35,11 @@
 
       "tconstruct:materials/metals/copper",
       "tconstruct:materials/metals/iron",
+      "tconstruct:materials/metals/cobalt",
+      "tconstruct:materials/metals/rose_gold",
+      "tconstruct:materials/metals/constantan",
+      "tconstruct:materials/metals/hepatizon",
+      "tconstruct:materials/metals/manyullyn",
 
       "undergarden:materials/metals/cloggrum",
       "undergarden:materials/woods/grongle",

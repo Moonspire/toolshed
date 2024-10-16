@@ -1,9 +1,21 @@
 {
   "toolshed.material.null": "Null",
+
+  "toolshed.material.createbigcannons.nethersteel":  "Nethersteel",
+
+  "toolshed.material.forge.aluminum": "Aluminum",
+  "toolshed.material.forge.brass": "Brass",
+  "toolshed.material.forge.electrum": "Electrum",
+  "toolshed.material.forge.lead": "Lead",
+  "toolshed.material.forge.silver": "Silver",
+  "toolshed.material.forge.steel": "Steel",
+
+  "toolshed.material.immersiveengineering.treated": "Treated Wood",
+
   "toolshed.material.minecraft.copper": "Copper",
   "toolshed.material.minecraft.gold": "Gold",
   "toolshed.material.minecraft.iron": "Iron",
-  "toolshed.material.minecraft.bone": "Bone",
+  "toolshed.material.minecraft.bone": "Ivory",
   "toolshed.material.minecraft.shulker": "Shulker Shells",
   "toolshed.material.minecraft.crimson": "Crimson Hyphae",
   "toolshed.material.minecraft.warped": "Warped Hyphae",
@@ -14,12 +26,20 @@
   "toolshed.material.minecraft.mangrove": "Mangrove Wood",
   "toolshed.material.minecraft.oak": "Oak Wood",
   "toolshed.material.minecraft.spruce": "Spruce Wood",
-  "toolshed.material.forge.aluminum": "Aluminum",
-  "toolshed.material.forge.brass": "Brass",
-  "toolshed.material.forge.electrum": "Electrum",
-  "toolshed.material.forge.lead": "Lead",
-  "toolshed.material.forge.silver": "Silver",
-  "toolshed.material.forge.steel": "Steel",
+
+  "toolshed.material.pigsteel.pigsteel": "Pigsteel",
+
+  "toolshed.material.quark.ancient": "Ancient Wood",
+  "toolshed.material.quark.azalea": "Azalea Wood",
+  "toolshed.material.quark.blossom": "Blossom Wood",
+
+  "toolshed.material.tconstruct.copper": "Cast Copper",
+  "toolshed.material.tconstruct.iron": "Cast Iron",
+
+  "toolshed.material.undergarden.cloggrum": "Cloggrum",
+  "toolshed.material.undergarden.grongle": "Grongle Wood",
+  "toolshed.material.undergarden.smogstem": "Smogstem",
+  "toolshed.material.undergarden.wigglewood": "Wigglewood",
 
   "tooltip.toolshed.material": "Material"
 }

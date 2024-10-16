@@ -1,0 +1,13 @@
+{
+  "requires": "tconstruct",
+  "properties": {
+    "color": [241, 172, 147],
+    "density": 123,
+    "hardness": 30,
+    "purity": 90
+  },
+  "crafting": {
+    "casting_fluid": "tconstruct:molten_rose_gold",
+    "castable": true
+  }
+}

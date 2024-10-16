@@ -1,0 +1,13 @@
+{
+  "requires": "tconstruct",
+  "properties": {
+    "color": [66, 141, 215],
+    "density": 88,
+    "hardness": 50,
+    "purity": 90
+  },
+  "crafting": {
+    "casting_fluid": "tconstruct:molten_cobalt",
+    "castable": true
+  }
+}
