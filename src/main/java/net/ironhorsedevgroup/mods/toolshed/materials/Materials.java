@@ -143,7 +143,6 @@ public class Materials {
         return materials.isEmpty();
     }
 
-    @OnlyIn(Dist.CLIENT)
     public String getMaterialLang(ResourceLocation location) {
         if (!Objects.equals(location, null) && materials.containsKey(location)) {
             return Toolshed.MODID + ".material." + location.getNamespace() + "." + location.getPath();
