@@ -11,8 +11,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModList;
 
 import java.util.*;
@@ -115,17 +113,27 @@ public class Materials {
         return NULL;
     }
 
-    public ResourceLocation getMaterial(ItemStack itemStack) {
-        if (!NBT.getStringTag(itemStack, "material").equals("")) {
-            return NBT.getLocationTag(itemStack, "material");
+    public static ResourceLocation getMaterial(ItemStack stack) {
+        ResourceLocation location = DataLoader.getMaterials().getMaterial(stack, false);
+        if (location.getPath().equals("null")) {
+            location = ResourceLoader.getMaterials().getMaterial(stack, true);
+        }
+        return location;
+    }
+
+    public ResourceLocation getMaterial(ItemStack stack, boolean client) {
+        ResourceLocation location = new ResourceLocation("null");
+        if (!NBT.getStringTag(stack, "material").equals("")) {
+            location = NBT.getLocationTag(stack, "material");
         }
         for (ResourceLocation key : materials.keySet()) {
             Material material = getMaterial(key);
-            if (material.getCrafting().getCraftingIngredient().test(itemStack)) {
-                return key;
+            if (material.getCrafting().getCraftingIngredient().test(stack)) {
+                location = key;
             }
         }
-        return new ResourceLocation("null");
+        Toolshed.LOGGER.info("Got material {} from item {}", location, stack.getDescriptionId());
+        return location;
     }
 
     public static List<ResourceLocation> getMaterials() {

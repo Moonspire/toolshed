@@ -2,7 +2,9 @@ package net.ironhorsedevgroup.mods.toolshed.materials;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
+import net.ironhorsedevgroup.mods.toolshed.Toolshed;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -10,6 +12,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.AbstractIngredient;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MaterialIngredient extends AbstractIngredient {
     private final ResourceLocation material;
@@ -29,7 +34,10 @@ public class MaterialIngredient extends AbstractIngredient {
 
     @Override
     public JsonElement toJson() {
-        return null;
+        JsonObject object = new JsonObject();
+        object.addProperty("type", "toolshed:material");
+        object.addProperty("material", material.toString());
+        return object;
     }
 
     public ResourceLocation getMaterial() {
@@ -58,7 +66,7 @@ public class MaterialIngredient extends AbstractIngredient {
 
     @Override
     public boolean test(@Nullable ItemStack stack) {
-        return Materials.getMaterial(material).getCrafting().getCraftingIngredient().test(stack);
+        return Materials.getMaterial(stack).equals(material);
     }
 
     public static class Serializer implements IIngredientSerializer<MaterialIngredient> {
@@ -72,7 +80,7 @@ public class MaterialIngredient extends AbstractIngredient {
         @Override
         public MaterialIngredient parse(JsonObject json) {
             if (json.has("material")) {
-                new MaterialIngredient(json.get("material").getAsString());
+                return new MaterialIngredient(json.get("material").getAsString());
             }
             return new MaterialIngredient("toolshed:all");
         }
