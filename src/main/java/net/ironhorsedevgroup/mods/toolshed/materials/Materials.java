@@ -132,7 +132,6 @@ public class Materials {
                 location = key;
             }
         }
-        Toolshed.LOGGER.info("Got material {} from item {}", location, stack.getDescriptionId());
         return location;
     }
 
