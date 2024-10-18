@@ -65,10 +65,6 @@ public class Materials {
         return materialIngredient;
     }
 
-    public List<ResourceLocation> getMaterials() {
-        return materials.keySet().stream().toList();
-    }
-
     public void clearMaterials() {
         materials.clear();
         erroredMaterials.clear();
@@ -131,6 +127,21 @@ public class Materials {
             }
         }
         return new ResourceLocation("null");
+    }
+
+    public static List<ResourceLocation> getMaterials() {
+        if (DataLoader.getMaterials().isEmpty()) {
+            return ResourceLoader.getMaterials().getMaterials(true);
+        }
+        return DataLoader.getMaterials().getMaterials(false);
+    }
+
+    public List<ResourceLocation> getMaterials(boolean client) {
+        return materials.keySet().stream().toList();
+    }
+
+    public boolean isEmpty() {
+        return materials.isEmpty();
     }
 
     @OnlyIn(Dist.CLIENT)
