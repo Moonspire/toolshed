@@ -5,7 +5,6 @@ import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets.Resour
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.DataLoader;
 import net.ironhorsedevgroup.mods.toolshed.network.ToolshedMessages;
 import net.ironhorsedevgroup.mods.toolshed.network.stc.MaterialPacket;
-import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.ironhorsedevgroup.mods.toolshed.tools.NBT;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
