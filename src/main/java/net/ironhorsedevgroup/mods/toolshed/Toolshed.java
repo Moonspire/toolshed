@@ -6,7 +6,9 @@ import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.data.Toolshed
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets.ResourceLoader;
 import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets.ToolshedClientHandler;
 import net.ironhorsedevgroup.mods.toolshed.interfaces.ItemRightClickTrigger;
+import net.ironhorsedevgroup.mods.toolshed.materials.MaterialIngredient;
 import net.ironhorsedevgroup.mods.toolshed.network.ToolshedMessages;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -43,6 +46,7 @@ public class Toolshed {
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
+        CraftingHelper.register(new ResourceLocation("toolshed:material"), MaterialIngredient.Serializer.INSTANCE);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

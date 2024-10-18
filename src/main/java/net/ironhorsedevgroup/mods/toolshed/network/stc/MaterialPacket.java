@@ -1,7 +1,7 @@
 package net.ironhorsedevgroup.mods.toolshed.network.stc;
 
+import net.ironhorsedevgroup.mods.toolshed.content_packs.resources.assets.ResourceLoader;
 import net.ironhorsedevgroup.mods.toolshed.materials.Material;
-import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -41,7 +41,7 @@ public class MaterialPacket {
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            Materials.loadMaterial(this);
+            ResourceLoader.getMaterials().loadMaterial(this);
         });
         return true;
     }

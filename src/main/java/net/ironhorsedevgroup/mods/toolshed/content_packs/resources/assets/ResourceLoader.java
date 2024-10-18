@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
+import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -21,9 +22,16 @@ import java.util.Optional;
 
 public class ResourceLoader {
     private static final Map<String, ResourceFileHandler> handlers = new HashMap<>();
+    @OnlyIn(Dist.CLIENT)
+    private static final Materials materials = new Materials();
 
     public static void addPackAssetHandler(String fileName, ResourceFileHandler handler) {
         handlers.put(fileName, handler);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static Materials getMaterials() {
+        return materials;
     }
 
     @OnlyIn(Dist.CLIENT)

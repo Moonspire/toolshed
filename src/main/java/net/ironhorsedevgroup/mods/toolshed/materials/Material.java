@@ -7,9 +7,7 @@ import net.ironhorsedevgroup.mods.toolshed.tools.Color;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.ironhorsedevgroup.mods.toolshed.tools.Tags;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
@@ -45,7 +43,7 @@ public class Material {
 
     public static Material fromPacket(MaterialPacket packet) {
         Properties properties = Properties.fromPacket(packet);
-        Crafting crafting = new Crafting();
+        Crafting crafting = Crafting.fromPacket(packet);
 
         return new Material(properties, crafting, "");
     }
@@ -154,7 +152,7 @@ public class Material {
         private final boolean castable;
 
         public Crafting() {
-            this.ingredient = null;
+            this.ingredient = Ingredient.EMPTY;
             this.castingFluid = null;
             this.castable = false;
         }
@@ -166,7 +164,7 @@ public class Material {
         }
 
         public static Crafting fromJson(JsonObject json) {
-            Ingredient ingredient = null;
+            Ingredient ingredient = Ingredient.EMPTY;
             ResourceLocation castingFluid = null;
             boolean castable = false;
 
@@ -204,6 +202,11 @@ public class Material {
 
         public static Crafting fromData(Data.DataObject data) {
             return fromJson(data.get().getAsJsonObject());
+        }
+
+        public static Crafting fromPacket(MaterialPacket packet) {
+            Ingredient ingredient = packet.ingredient;
+            return new Crafting(ingredient, null, false);
         }
 
         public Ingredient getCraftingIngredient() {

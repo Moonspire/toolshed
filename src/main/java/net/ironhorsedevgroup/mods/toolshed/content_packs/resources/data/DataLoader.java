@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
+import net.ironhorsedevgroup.mods.toolshed.materials.Materials;
 import net.ironhorsedevgroup.mods.toolshed.tools.Data;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -20,9 +21,14 @@ import java.util.Optional;
 
 public class DataLoader {
     private static final Map<String, DataFileHandler> handlers = new HashMap<>();
+    private static final Materials materials = new Materials();
 
     public static void addPackDataHandler(String key, DataFileHandler handler) {
         handlers.put(key, handler);
+    }
+
+    public static Materials getMaterials() {
+        return materials;
     }
 
     public static void loadServer(ServerStartingEvent event) {

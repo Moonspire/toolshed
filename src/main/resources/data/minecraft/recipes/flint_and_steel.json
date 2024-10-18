@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:flint"
+    },
+    {
+      "type": "toolshed:material",
+      "material": "forge:steel"
+    }
+  ],
+  "result": {
+    "item": "minecraft:flint_and_steel"
+  }
+}
