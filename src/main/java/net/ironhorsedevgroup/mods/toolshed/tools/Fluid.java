@@ -77,12 +77,12 @@ public class Fluid {
             ItemStack itemstack = player.getItemInHand(hand);
             ItemStack newstack = itemstack;
             Item item = itemstack.getItem();
-            if (item instanceof BucketItem bucketitem) {
+            if (item instanceof BucketItem) {
                 world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BUCKET_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 world.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
                 newstack = ItemUtils.createFilledResult(itemstack, player, new ItemStack(Items.WATER_BUCKET));
                 retval = true;
-            } else if (item instanceof BottleItem bottleitem) {
+            } else if (item instanceof BottleItem) {
                 world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 world.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
                 newstack = ItemUtils.createFilledResult(itemstack, player, PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER));
