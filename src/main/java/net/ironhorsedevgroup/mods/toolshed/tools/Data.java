@@ -11,6 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 public class Data {
+    //Test comment
     public static JsonObject readJson(ResourceLocation location, ResourceManager manager) {
         location = new ResourceLocation(location.getNamespace(), location.getPath() + ".json");
         try {
