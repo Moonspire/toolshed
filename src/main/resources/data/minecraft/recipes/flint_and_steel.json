@@ -6,7 +6,7 @@
     },
     {
       "type": "toolshed:material",
-      "material": "forge:steel"
+      "material": "minecraft:iron"
     }
   ],
   "result": {

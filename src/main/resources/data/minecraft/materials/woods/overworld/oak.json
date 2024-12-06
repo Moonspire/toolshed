@@ -9,7 +9,7 @@
   "crafting": {
     "crafting_item": {
       "type": "item",
-      "ingredient": "minecraft:oak"
+      "ingredient": "minecraft:oak_planks"
     }
   }
 }

@@ -10,4 +10,8 @@ public class Tags {
         var tagManager = ForgeRegistries.ITEMS.tags();
         return tagManager.createTagKey(tag);
     }
+
+    public static TagKey<Item> getItemTag(String tag) {
+        return getItemTag(new ResourceLocation(tag));
+    }
 }
