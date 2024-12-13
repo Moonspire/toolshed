@@ -2,6 +2,7 @@ package net.ironhorsedevgroup.mods.toolshed.tools;
 
 import net.ironhorsedevgroup.mods.toolshed.Toolshed;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -9,9 +10,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -22,9 +20,9 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -68,32 +66,47 @@ public class Fluid {
         return retStack.get();
     }
 
-    public static void addFluid(Level world, BlockPos pos, int tank, FluidStack fluid) {
-        BlockEntity _ent = world.getBlockEntity(pos);
+    public static void addFluid(Level level, BlockPos pos, int tank, FluidStack fluid) {
+        if (level.isClientSide) {
+            return;
+        }
+        FluidStack existingFluid = getFluid(level, pos, tank);
+        if (fluid.getRawFluid().isSame(existingFluid.getRawFluid()) && !fluid.getOrCreateTag().equals(existingFluid.getOrCreateTag())) {
+            Toolshed.LOGGER.info("Converting fluid found at {} to match NBT data.", pos);
+            int amount = existingFluid.getAmount();
+            drainFluid(level, pos, tank, amount);
+            fluid.setAmount(fluid.getAmount() + amount);
+        }
+        BlockEntity _ent = level.getBlockEntity(pos);
         if (_ent != null)
             _ent.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
                     .ifPresent(capability -> capability.fill(fluid, IFluidHandler.FluidAction.EXECUTE));
     }
 
-    public static void addFluid(Level world, BlockPos pos, int tank, int amount, ResourceLocation fluid) {
+    public static void addFluid(Level level, BlockPos pos, int tank, int amount, ResourceLocation fluid) {
         net.minecraft.world.level.material.Fluid fluids = ForgeRegistries.FLUIDS.getValue(fluid);
         if (fluids != null) {
-            addFluid(world, pos, tank, new FluidStack(fluids, amount));
+            addFluid(level, pos, tank, new FluidStack(fluids, amount));
         }
     }
 
-    public static void addFluid(Level world, BlockPos pos, int tank, int amount) {
-        addFluid(world, pos, tank, new FluidStack(Fluids.WATER, amount));
+    public static void addFluid(Level level, BlockPos pos, int tank, int amount) {
+        addFluid(level, pos, tank, new FluidStack(Fluids.WATER, amount));
     }
 
-    public static void drainFluid(Level level, BlockPos pos, int tank, int amount) {
-        Toolshed.LOGGER.info("{} water", amount);
-        FluidStack fluid = getFluid(level, pos, tank);
-        fluid.setAmount(fluid.getAmount() - amount);
+    public static boolean drainFluid(Level level, BlockPos pos, int tank, int amount) {
+        if (getFluidTankLevel(level, pos, tank) >= amount) {
+            if (level.isClientSide) {
+                return true;
+            }
+            FluidStack fluid = getFluid(level, pos, tank);
+            fluid.setAmount(fluid.getAmount() - amount);
+            return true;
+        }
+        return false;
     }
 
     public static boolean drawBucket(Level level, InteractionHand hand, Player player, BlockPos pos, int tank) {
-        Toolshed.LOGGER.info("Drawing Bucket");
         boolean retval = false;
         FluidStack fluid = getFluid(level, pos, tank);
         Item bucket = fluid.getFluid().getBucket();
@@ -118,6 +131,7 @@ public class Fluid {
         return retval;
     }
 
+    /*
     public static boolean drawBottle(Level level, InteractionHand hand, Player player, BlockPos pos, int tank) {
         Toolshed.LOGGER.info("Drawing Bottle");
         boolean retval = false;
@@ -143,12 +157,39 @@ public class Fluid {
         }
         return retval;
     }
+     */
+
+    public static boolean drawBottle(Level level, InteractionHand hand, Player player, BlockPos pos, int tank) {
+        FluidStack fluid = getFluid(level, pos, tank);
+        if (fluid.getFluid().isSame(Fluids.WATER)) {
+            CompoundTag tags = fluid.getTag();
+            if ((player.isCreative()) || drainFluid(level, pos, tank, 333)) {
+                Item bottle = Items.POTION;
+                ItemStack transform = new ItemStack(bottle);
+                CompoundTag newTags = transform.getOrCreateTag();
+                for (String key : tags.getAllKeys()) {
+                    newTags.put(key, Objects.requireNonNull(tags.get(key)));
+                }
+                NBT.putLocationTag(transform, "Potion", new ResourceLocation("minecraft:water"));
+                ItemStack emptyStack = player.getItemInHand(hand);
+                if (player.isCreative() || emptyStack.getCount() > 1) {
+                    ItemUtils.createFilledResult(emptyStack, player, transform);
+                } else {
+                    player.setItemInHand(hand, transform);
+                }
+                return true;
+            }
+        }
+        if (!level.isClientSide()){
+            player.displayClientMessage(Component.literal("Could not bottle fluid!"), false);
+        }
+        return false;
+    }
 
     public static boolean drawFluid(Level level, InteractionHand hand, Player player, BlockPos pos, int tank) {
-        if (player.isCrouching() || level.isClientSide) {
+        if (player.isCrouching()) {
             return false;
         }
-        Toolshed.LOGGER.info("Drawing Fluid");
         boolean retval = false;
         ItemStack itemstack = player.getItemInHand(hand);
         if (itemstack.is(Items.BUCKET)) {
