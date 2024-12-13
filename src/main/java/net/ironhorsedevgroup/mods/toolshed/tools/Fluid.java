@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
@@ -85,62 +86,75 @@ public class Fluid {
         addFluid(world, pos, tank, new FluidStack(Fluids.WATER, amount));
     }
 
-    public static void drainFluid(Level world, BlockPos pos, int tank, int amount) {
-        BlockEntity _ent = world.getBlockEntity(pos);
-        FluidStack fluid = getFluid(world, pos, tank);
-        fluid.setAmount(amount);
-        if (_ent != null)
-            _ent.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
-                    .ifPresent(capability -> capability.drain(fluid, IFluidHandler.FluidAction.EXECUTE));
+    public static void drainFluid(Level level, BlockPos pos, int tank, int amount) {
+        Toolshed.LOGGER.info("{} water", amount);
+        FluidStack fluid = getFluid(level, pos, tank);
+        fluid.setAmount(fluid.getAmount() - amount);
     }
 
-    private static boolean drawFluid(Level world, InteractionHand hand, Player player, BlockPos pos, int tank, int drawAmount) { //Draws fluid into container from block
-        if (player.isCrouching()) {
-            return false;
-        }
+    public static boolean drawBucket(Level level, InteractionHand hand, Player player, BlockPos pos, int tank) {
+        Toolshed.LOGGER.info("Drawing Bucket");
         boolean retval = false;
-        FluidStack fluid = getFluid(world, pos, tank);
-        if (getFluidTankLevel(world, pos, tank) >= drawAmount) {
-            ItemStack itemstack = player.getItemInHand(hand);
-            ItemStack newstack = itemstack;
-            Item item = itemstack.getItem();
-            if (item instanceof BucketItem) {
-                world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BUCKET_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
-                world.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
-                newstack = ItemUtils.createFilledResult(itemstack, player, new ItemStack(fluid.getRawFluid().getBucket()));
-                retval = true;
-            } else if (item instanceof BottleItem && fluid.getFluid() == Fluids.WATER) {
-                world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BOTTLE_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
-                world.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
-                newstack = ItemUtils.createFilledResult(itemstack, player, PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER));
-                retval = true;
-            }
-            if (retval) {
-                if (ModList.get().isLoaded("thirst") && fluid.getFluid() == Fluids.WATER) {
-                    newstack.getOrCreateTag().putInt("Purity", fluid.getOrCreateTag().getInt("Purity"));
-                }
+        FluidStack fluid = getFluid(level, pos, tank);
+        Item bucket = fluid.getFluid().getBucket();
+        if (bucket instanceof Item) {
+            if (getFluidTankLevel(level, pos, tank) >= 1000) {
+                ItemStack transform = bucket.getDefaultInstance();
+                transform.deserializeNBT(fluid.getTag());
+                ItemUtils.createFilledResult(player.getItemInHand(hand), player, transform);
                 if (!player.isCreative()) {
-                    drainFluid(world, pos, tank, drawAmount);
+                    drainFluid(level, pos, tank, 1000);
                 }
+                level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BUCKET_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                level.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
+            } else {
+                player.displayClientMessage(Component.literal("Not enough fluid in source!"), false);
+                return false;
             }
-            player.setItemInHand(hand, newstack);
         } else {
-            player.displayClientMessage(Component.literal("Not enough fluid in source"), (true));
+            player.displayClientMessage(Component.literal("Not a bucketable fluid!"), false);
+            return false;
         }
         return retval;
     }
 
-    public static boolean drawFluid(Level world, InteractionHand hand, Player player, BlockPos pos, int tank) {
-        if (player.isCrouching()) {
+    public static boolean drawBottle(Level level, InteractionHand hand, Player player, BlockPos pos, int tank) {
+        Toolshed.LOGGER.info("Drawing Bottle");
+        boolean retval = false;
+        FluidStack fluid = getFluid(level, pos, tank);
+        if (fluid.getFluid().isSame(Fluids.WATER)) {
+            Item bottle = Items.POTION;
+            if (getFluidTankLevel(level, pos, tank) >= 333) {
+                ItemStack transform = PotionUtils.setPotion(bottle.getDefaultInstance(), Potions.WATER);
+                transform.deserializeNBT(fluid.getTag());
+                ItemUtils.createFilledResult(player.getItemInHand(hand), player, transform);
+                if (!player.isCreative()) {
+                    drainFluid(level, pos, tank, 333);
+                }
+                level.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BUCKET_FILL, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                level.gameEvent(player, GameEvent.FLUID_PICKUP, pos);
+            } else {
+                player.displayClientMessage(Component.literal("Not enough fluid in source!"), false);
+                return false;
+            }
+        } else {
+            player.displayClientMessage(Component.literal("Not a bottleable fluid!"), false);
             return false;
         }
+        return retval;
+    }
+
+    public static boolean drawFluid(Level level, InteractionHand hand, Player player, BlockPos pos, int tank) {
+        if (player.isCrouching() || level.isClientSide) {
+            return false;
+        }
+        Toolshed.LOGGER.info("Drawing Fluid");
         boolean retval = false;
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
-        if (item instanceof BucketItem) {
-            retval = drawFluid(world, hand, player, pos, tank, 1000);
-        } else if (item instanceof BottleItem) {
-            retval = drawFluid(world, hand, player, pos, tank, 333);
+        if (itemstack.is(Items.BUCKET)) {
+            retval = drawBucket(level, hand, player, pos, tank);
+        } else if (itemstack.is(Items.GLASS_BOTTLE)) {
+            retval = drawBottle(level, hand, player, pos, tank);
         }
         return retval;
     }
