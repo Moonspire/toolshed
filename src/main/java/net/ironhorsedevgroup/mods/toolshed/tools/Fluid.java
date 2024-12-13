@@ -1,5 +1,6 @@
 package net.ironhorsedevgroup.mods.toolshed.tools;
 
+import net.ironhorsedevgroup.mods.toolshed.Toolshed;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -85,9 +87,11 @@ public class Fluid {
 
     public static void drainFluid(Level world, BlockPos pos, int tank, int amount) {
         BlockEntity _ent = world.getBlockEntity(pos);
+        FluidStack fluid = getFluid(world, pos, tank);
+        fluid.setAmount(amount);
         if (_ent != null)
             _ent.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null)
-                    .ifPresent(capability -> capability.drain(new FluidStack(getFluid(world, pos, tank).getFluid(), amount), IFluidHandler.FluidAction.EXECUTE));
+                    .ifPresent(capability -> capability.drain(fluid, IFluidHandler.FluidAction.EXECUTE));
     }
 
     private static boolean drawFluid(Level world, InteractionHand hand, Player player, BlockPos pos, int tank, int drawAmount) { //Draws fluid into container from block
@@ -112,7 +116,12 @@ public class Fluid {
                 retval = true;
             }
             if (retval) {
-                drainFluid(world, pos, tank, drawAmount);
+                if (ModList.get().isLoaded("thirst") && fluid.getFluid() == Fluids.WATER) {
+                    newstack.getOrCreateTag().putInt("Purity", fluid.getOrCreateTag().getInt("Purity"));
+                }
+                if (!player.isCreative()) {
+                    drainFluid(world, pos, tank, drawAmount);
+                }
             }
             player.setItemInHand(hand, newstack);
         } else {
